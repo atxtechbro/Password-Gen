@@ -19,7 +19,7 @@
         "verboten": [
             "password",
             "topsecret",
-            "foobar",
+            "eggs",
             "spam"
         ]
     }
