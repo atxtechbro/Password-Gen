@@ -1,5 +1,6 @@
 from password_gen import PasswordGenerator
 
+
 CONFIG_PATH = f'config.json'
 
 Fail_characters = "34kS682;"
