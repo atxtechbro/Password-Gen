@@ -1,9 +1,10 @@
-import collections
 import json
-import random
 import re
-import string
 
+
+from collections import Counter
+from string import ascii_uppercase
+from random import choice, randint, shuffle
 
 class PasswordGenerator:
 
@@ -16,27 +17,27 @@ class PasswordGenerator:
             data = json.load(p)
             g1 = data['allowed_characters']['groups'].values()
             for g in g1:
-                for i in range(random.randint(2,8)):
-                    password.append(random.choice(g))
+                for i in range(randint(2,8)):
+                    password += choice(g),
 
-            doubleDigits = str(random.randint(0,9)) + str(random.randint(0,9))
-            password.append(doubleDigits)
-            password.append(random.choice(string.ascii_uppercase))
+            doubleDigits = str(randint(0,9)) + str(randint(0,9))
+            password += doubleDigits,
+            password += choice(ascii_uppercase),
             
-            random.shuffle(password)
+            shuffle(password)
 
             password = ''.join(password)
             regex = r'(.)\1+' 
             password = re.sub(regex, r'\1', password)
 
-        counts = collections.Counter(password)
+        counts = Counter(password)
         for k, v in counts.items():
             if v >= 3:
                 password = password.replace(k, '')
 
         for bad_password in data['violations']['verboten']:
             if password in bad_password:
-                 password = random.shuffle(password)
+                 password = shuffle(password)
         return password
             
 
@@ -49,7 +50,7 @@ class PasswordGenerator:
                    return False
                 else:
                     pass
-            counts = collections.Counter(password)
+            counts = Counter(password)
             for k, v in counts.items():
                    if v >= 3:
                         print(password, 'False due to 3 or more repeated characters: ', v)
@@ -77,3 +78,4 @@ class PasswordGenerator:
 
     def password_from_config_file(filepath: str) -> str:
         pass
+   
