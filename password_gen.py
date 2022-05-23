@@ -17,7 +17,7 @@ class PasswordGenerator:
             data = json.load(p)
             g1 = data['allowed_characters']['groups'].values()
             for g in g1:
-                for i in range(randint(2,8)):
+                for _ in range(randint(2,8)):
                     password += choice(g),
 
             doubleDigits = str(randint(0,9)) + str(randint(0,9))
